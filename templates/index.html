@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<section class="ks-section ks-bread ks-extend-mb">
+  <div class="container-fluid px-3 px-md-0">
+	<div class="row justify-content-end">
+	  <div class="col-md-10">
+			<div class="row d-flex">
+			  <div class="col-lg-8">
+			    <div class="row">
+          
+            <!-- Start: Articles on Loop -->
+            {% for post in post_list %}
+            <div class="col-md-12">
+					    <div class="blog-entry ks-animate">
+								<a href="{% url 'post_detail' post.slug  %}" class="img img-2" style="background-image: url('{{ post.image.url }}');"></a>
+								<div class="text pt-3">
+									<h3 class="mb-2"><a href="{% url 'post_detail' post.slug  %}">{{ post.title }}</a></h3>
+						      <div class="meta-wrap">
+									  <p class="note-statistics">Published <span class="badge badge-pill badge-info">{{ post.created_on | naturaltime }}</span> with <span class="badge badge-pill badge-info">{{post.content | wordcount}} words </span> +  <span class="badge badge-pill badge-success">{{post.total_likes }} Hearts </span></p>
+             
+                     
+					        </div>
+                  <form>
+                  
+
+						      <h2 class="link-read-more ks-animate"><a href="{% url 'post_detail' post.slug  %}" onClick="document.getElementById('ip_address').submit()">Read More></a></h2>
+                  <form id="ip_address" method="POST">
+                    <input type="hidden" name="post_id" value="{{post.id}}" />
+                  </form>
+                 
+                </div>
+              </div>
+					  </div>
+            {% endfor %}
+            <!-- End: Articles on Loop -->	
+					</div>
+          
+          <!-- Start: pagination -->
+          <div class="row">
+            <div class="col" style="z-index:1002;" >
+              
+                {% if is_paginated %}
+                  {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">&laquo; Previous </a>
+                  {% endif %}
+                  {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}"> Next &raquo;</a>
+                  {% endif %}
+                {% endif %}
+    
+                
+					  </div>
+					</div>
+          <!-- End: pagination -->
+        </div>
+        {% block sidebar %}
+            {% include 'right_side.html' %}
+        {% endblock sidebar %}
+
+        
+			</div>
+		</div>
+	</div>
+	</div>
+</section>
+
+{% endblock content %}

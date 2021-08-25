@@ -1,0 +1,47 @@
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+.lead,
+.blog-post-title {
+    font-family: 'Hahmlet', serif;
+}
+
+.blog-post-title,
+strong {
+    color: #000;
+}
+
+p,
+a {
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+p {
+    color: #828282;
+}
+
+.bg-info {
+    background: #d8b2bc!Important;
+}
+
+.link-default a,
+.link-default a:active {
+    text-decoration: none;
+    color: #a29b9b;
+}
+
+a.link-primary,
+a.link-primary:active {
+    color: #d8b2bc!important;
+}

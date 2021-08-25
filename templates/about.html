@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+		<section class="ks-section ks-no-pt ks-no-pb mb-5 ks-intro">
+			<div class="container-fluid px-3 px-md-0">
+				<div class="row justify-content-end">
+					<div class="col-md-10 mt-3">
+						{% for about_intro in about_intro.all %}
+						<h1 class="mb-5">{{ about_intro.field_title }}</h1>
+						<div class="row">
+							<div class="col-md-6">
+							<p>{{ about_intro.field_content }}</p>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<section class="ks-section px-0" id="about_feature">
+			<div class="container-fluid px-0" style="height:1100px!important">
+				<div class="row justify-content-end">
+					<div class="col-md-10">
+						{% for about_feature in about_feature.all %}
+
+						<!-- <div id="home" class="video-hero js-fullheight" style="height: 700px; background-image: url({{ about_feature.image.url }}); background-size:cover; background-position: center center;"> -->
+
+						<div id="home" class="video-hero js-fullheight">
+							<div class="container">
+								<div class="row js-fullheight justify-content-center d-flex align-items-start">
+									<div class="col-md-10">
+										<div class="text">
+											<h1>{{ about_feature.field_title }}</h1>
+										</div>
+										<div id="curator-feed-default-feed-layout">
+											<a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a>
+										</div>
+									</div>
+								</div>
+							
+							</div>
+							
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="ks-services ks-section">
+			<div class="container-fluid px-3 px-md-0">
+				<div class="row justify-content-end">
+					<div class="col-md-10">
+						<div class="row">
+							{% for feature_1 in feature_1.all %}
+							<div class="col-md-4 d-flex align-self-stretch ks-animate">
+			            		<div class="media block-6 services d-block">
+			              			<div class="icon d-flex justify-content-center align-items-center">
+			            				<img src="{{ feature_1.image.url }}" height="50px" alt="{{ feature_1.field_title }}">
+			              			</div>
+									<div class="media-body p-2 mt-3">
+			                			<h3 class="heading">{{ feature_1.field_title }}</h3>
+			                			<p>{{ feature_1.field_content }}</p>
+			              			</div>
+			            		</div>      
+			          		</div>
+							{% endfor %}
+							{% for feature_2 in feature_2.all %}
+							<div class="col-md-4 d-flex align-self-stretch ks-animate">
+			            		<div class="media block-6 services d-block">
+			              			<div class="icon d-flex justify-content-center align-items-center">
+			            				<img src="{{ feature_2.image.url }}" height="50px" alt="{{ feature_2.field_title }}">
+			              			</div>
+									<div class="media-body p-2 mt-3">
+			                			<h3 class="heading">{{ feature_2.field_title }}</h3>
+			                			<p>{{ feature_2.field_content }}</p>
+			              			</div>
+			            		</div>      
+			          		</div>
+							{% endfor %}
+							{% for feature_3 in feature_3.all %}
+							<div class="col-md-4 d-flex align-self-stretch ks-animate">
+			            		<div class="media block-6 services d-block">
+			              			<div class="icon d-flex justify-content-center align-items-center">
+			            				<img src="{{ feature_3.image.url }}" height="50px" alt="{{ feature_3.field_title }}">
+			              			</div>
+									<div class="media-body p-2 mt-3">
+			                			<h3 class="heading">{{ feature_3.field_title }}</h3>
+			                			<p style="margin-right:20px;">{{ feature_3.field_content }}</p>
+			              			</div>
+			            		</div>      
+			          		</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="ks-section">
+			<div class="container-fluid px-3 px-md-0">
+				<div class="row">
+					{% for feature_box1 in feature_box1.all %}
+					<div class="col-md-6 project">
+						<div class="img js-fullheight" style="background-image: url({{ feature_box1.image.url }});">
+							<div class="text text-2 text-center">
+								<h2><a href="{{ feature_box1.field_url }}" target="_blank">{{ feature_box1.field_title }}></a></h2>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					{% for feature_box2 in feature_box2.all %}
+					<div class="col-md-6 project">
+						<div class="img js-fullheight" style="background-image: url({{ feature_box2.image.url }});">
+							<div class="text text-2 text-center">
+								<h2><a href="{{ feature_box2.field_url }}" target="_blank">{{ feature_box2.field_title }}></a></h2>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					
+					<!--<div class="col-md-12 text-center ks-animate">
+						<h1>Got questions? <a href="mailto:kaye.sokua@outlook.com">Contact me.</a></h1>
+					</div>-->			
+				</div>
+			</div>
+		</section>
+
+<script type="text/javascript">
+/* curator-feed-default-feed-layout */
+(function(){
+var i, e, d = document, s = "script";i = d.createElement("script");i.async = 1;
+i.src = "https://cdn.curator.io/published/6d5aaf97-51bb-4581-849c-2fcb79b5e760.js";
+e = d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
+})();
+</script>
+
+{% endblock content %}

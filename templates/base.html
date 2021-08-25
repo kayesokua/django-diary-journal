@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Kaye So Kua</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  </head>
+  <body>
+  	<div id="ks-page">
+	  	<!-- Start: Sidebar Navigation -->
+	  	<a href="#" class="js-ks-nav-toggle ks-nav-toggle"><i></i></a>
+		<aside id="ks-aside" role="complementary" class="js-fullheight">
+			<nav id="ks-main-menu" role="navigation">
+				<ul>
+                    {% url 'home' as home_url %}
+					<li {% if request.get_full_path == home_url %}class="ks-active"{% endif %}><a href="{{ home_url }}">Notes></a></li>
+                    {% url 'about_me' as about_url %}
+					<li {% if request.get_full_path == about_url %}class="ks-active"{% endif %}><a href="{{ about_url }}">About></a></li>
+				</ul>
+                <p class="social">
+                
+                {% for social_links in social_links.all %}
+                    <span><a href="{{ social_links.url }}" target="blank">{{ social_links.name }}</a></span>
+                {% endfor %}
+                </p>
+			</nav>
+			
+			<div class="ks-logo-footer">
+				<img src="https://image.flaticon.com/icons/png/512/4019/4019820.png" alt="Kaye" style="max-height:50px" />
+			</div>
+		</aside>
+		<!-- End: Sidebar Navigation -->
+
+		
+		<div id="ks-main">
+        
+            <!-- Start: Main Content -->
+             {% block content %}
+             <!-- Articles Here -->
+             {% endblock content %}
+             <!-- End: Main Content -->
+
+            <footer class="ks-footer ks-bg-dark ks-section">
+                <div class="container px-md-5">
+	                <div class="row mb-5">
+                    <div class="col-md">
+	                    <div class="ks-footer-widget mb-4">
+	            	        <h2 class="ks-heading-2">About the Journal ʕ•́ᴥ•̀ʔっ♡ </h2>
+                            <span class="mb-5" style="color:#565656">
+                                Total of
+                                <span class="text">{{ total_posts }} Published notes</span> <br />
+                                <span class="text">{{ total_likes_count }} hearts received </span><br />
+                                <span class="text">{{ total_views_count }} unique sessions </span><br />
+                            
+                            <br />
+                            
+                            Copyright &copy; <script>document.write(new Date().getFullYear());</script> Kaye So Kua <i class="icon-heart" aria-hidden="true"></i></a></span>
+                        </div>
+                    </div>
+                    <div class="col-md">
+	                    <div class="ks-footer-widget mb-4">
+	            	        <h2 class="ks-heading-2">Contact Me</h2>
+	            	        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon icon-map-marker" style="color:#565656"></span>Berlin, Germany</li>
+                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">kayesokua@outlook.com</span></a></li>
+                                <a href="https://ko-fi.com/kayesokua" target="blank" class="btn btn-sm btn-primary" style="color:#565656">Buy me coffee ☕</a>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+	            </div>
+	        </footer>
+		</div>
+
+	</div>
+
+    <div id="ks-loader" class="show fullscreen">
+        <svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/>
+        </svg>
+    </div>
+    
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/aos.js' %}"></script>
+    <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+    <script src="{% static 'js/scrollax.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+  </body>
+</html>

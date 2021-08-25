@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+{% load hitcount_tags %}
+{% load humanize %}
+
+  <section class="ks-section ks-bread ks-extend-mb">
+	  <div class="container-fluid px-3 px-md-0">
+	    <div class="row justify-content-end">
+	    	<div class="col-md-10">
+			    <div class="row d-flex">
+
+            <!-- Start: Article Section -->
+			    	<div class="col-lg-8 ks-animate">
+			        <h1 class="mb-3 font-weight-bold">{{ post.title }}</h1>
+              
+              <p class="note-statistics">Published
+              <span class="badge badge-pill badge-info">{{ post.created_on | naturaltime }}</span>
+              with <span class="badge badge-pill badge-info">{{post.content | wordcount}} words </span>
+              {% if post.total_views > 0 %}
+              + <span class="badge badge-pill badge-success">{{post.total_views}} Total Views </span>
+              {% endif %}
+              </p>
+              <p><img src="{{ post.image.url }}" alt="Feature image for {{ post.title }}" class="img-fluid"></p>
+			        <p>{{ post.content | safe }}</p>
+              
+              <span class="badge badge-pill-lg badge-success">{{post.total_likes}} Hearts </span>
+
+              <a class="btn btn-sm btn-primary" href="#" onClick="document.getElementById('like').submit()">+1  💖</a>
+              <a class="btn btn-sm btn-primary" href="#" onClick="document.getElementById('unlike').submit()">-1  💔</a>
+
+              <form id="like" method="POST" action="{% url 'like' post.slug %}">
+                  {% csrf_token %}
+                  <input type="hidden">
+                  </form>
+                  <form id="unlike" method="POST" action="{% url 'unlike' post.slug %}">
+                  {% csrf_token %}
+                  <input type="hidden">
+                </form>
+
+              <h6 class="mt-5 mb-5">Tagged with: {% for tag in post.tags.all %} <a href="/tagged/{{tag.slug}}" class="tag-cloud-link" style="text-decoration:underline">{{tag.name}}</a>{% endfor %}</h6>
+
+			        
+              <div class="pt-5 mt-5">
+              <!--Start: Comment List -->
+			        <h3 class="mb-5 font-weight-bold">
+                {% with comments.count as total_comments %}
+                  {{ total_comments }} comments
+                {% endwith %}
+              </h3>
+              <ul class="comment-list">
+              {% for comment in comments %}
+              <li class="comment">
+                <div class="vcard bio"><img src="https://image.flaticon.com/icons/png/512/3306/3306625.png" alt="{{ comment.name }}"></div>
+			          <div class="comment-body">
+                <h3><a href="{{ comment.url }}" target="_blank"><strong>{{ comment.name }}</strong></a></h3>
+                <div class="meta">{{ comment.created_on }}</div>
+                <p>{{ comment.body | safe }}</p>
+                </div>
+              </li>
+              {% endfor %}
+              </ul>
+              <!--Start: End Comment List -->
+              <!--Start: Comment Form -->
+              <div class="comment-form-wrap pt-5">
+			          <h3 class="mb-5">Let me know what you think 💭</h3>
+			          
+                {% if new_comment %}
+                <div class="alert alert-success" role="alert">Your comment is awaiting moderation</div>
+                
+                {% else %}
+                <form method="post" class="p-3 p-md-5 bg-light">
+                {% csrf_token %}
+                  <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" class="form-control" name="name" required />
+			            </div>
+                  <div class="form-group">
+                    <label for="name">Website *</label>
+                    <input type="url" class="form-control" name="url" placeholder="http://yourwebsite.com" value="https://" required />
+			            </div>
+                  <div class="form-group">
+                    <label for="name">Comment *</label>
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" cols="30" rows="10" name="body" maxlength="300" required></textarea>
+			            </div>
+                  <div class="form-group">
+			              <input type="submit" value="Post" class="btn py-3 px-4 btn-primary">
+			            </div>
+                </form>
+                {% endif %}
+              </div>
+              <!--End: Comment Form -->
+			        </div>
+            </div>
+            <!-- End: Article Section -->
+            {% block sidebar %}
+              {% include 'right_side.html' %}
+            {% endblock sidebar %}
+			    </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

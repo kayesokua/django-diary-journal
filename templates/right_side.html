@@ -1,0 +1,43 @@
+{% load humanize %}
+    <!-- Start: Right Sidebar -->
+    <div class="col-lg-4 sidebar ks-animate">
+        
+        <div class="sidebar-box pt-0">
+            <form method="get" class="search-form" action="{% url 'post_search' %}">
+                <div class="form-group">
+                    <span class="icon icon-search"></span>
+			        <input type="text" class="form-control" placeholder="Type a keyword and hit enter" name="query" maxlength="50">
+			    </div>
+			</form>
+		</div>
+			
+        <div class="sidebar-box ks-animate">
+            <h3 class="sidebar-heading">Tag Cloud 🏷</h3>
+            <ul class="tagcloud">
+                <a href="{% url 'home' %}" class="tag-cloud-link">All Posts</a>
+                {% for item in tag_count %}
+                <a href="/tagged/{{ item.slug }}" class="tag-cloud-link">{{ item }} ({{ item.num_times }})</a>
+			    {% endfor %}
+            </ul>
+		</div> 
+        
+		<div class="sidebar-box ks-animate">
+		    <h3 class="sidebar-heading">Top 3 Notes</h3>
+            {% for item in liked_posts %}
+			<div class="block-21 mb-4 d-flex">
+			    <a class="blog-img mr-4" style="background-image: url({{ item.image.url }});"></a>
+                    <div class="text">
+                        <h3 class="heading"><a href="{% url 'post_detail' item.slug  %}">{{ item.title }}</a></h3>
+			            <div class="meta">
+			                <div><span class="icon-calendar"></span> {{ item.created_on }}
+                            
+                            <span class="icon-heart"></span> {{ item.total_likes }}</div>
+			            </div>
+			        </div>
+			</div>
+            {% endfor %}       
+        </div>
+          
+    
+    </div>
+    <!-- End: Right Sidebar -->
