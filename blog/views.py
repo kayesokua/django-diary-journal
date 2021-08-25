@@ -9,6 +9,16 @@ from django.db.models import Count
 import datetime
 from django.db.models import Q
 
+def word_count(str):
+    counts = dict()
+    words = str.split()
+
+    for word in words:
+        if word in counts:
+            counts[word] += 1
+        else:
+            counts[word] = 1
+    return counts
 
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by("-created_on")
@@ -24,8 +34,10 @@ class PostList(generic.ListView):
         context['liked_posts'] = Post.objects.filter(status=1).order_by("-total_likes")[:3]
         context['total_likes_count'] = Post.objects.filter(total_likes__gte=1).aggregate(Sum('total_likes'))['total_likes__sum']
         context['total_views_count'] = PostViews.objects.all().count()
-
+        context['total_word_count'] = Post.objects.filter(status=1,content__isnull=False).values_list('content')
+        
         return context
+
 
 def tag_detail(request, tag):
     template_name = 'category.html'
@@ -35,6 +47,7 @@ def tag_detail(request, tag):
     social_links = SociaLinks.objects.all()
     total_likes_count = Post.objects.filter(total_likes__gte=1).aggregate(Sum('total_likes'))['total_likes__sum']
     total_views_count = PostViews.objects.all().count()
+    total_word_count = Post.objects.filter(status=1,content__isnull=False).values_list('content')
 
     return render(
         request,
@@ -46,7 +59,8 @@ def tag_detail(request, tag):
             "liked_posts": liked_posts,
             "social_links": social_links,
             "total_likes_count": total_likes_count,
-            "total_views_count":total_views_count
+            "total_views_count":total_views_count,
+            "total_word_count": total_word_count
             
             }
         )
@@ -73,6 +87,7 @@ def post_detail(request, slug):
     total_likes_count = Post.objects.filter(total_likes__gte=1).aggregate(Sum('total_likes'))['total_likes__sum']
     total_views_count = PostViews.objects.all().count()
     total_views = PostViews.objects.filter(post=post).count()
+    total_word_count = Post.objects.filter(status=1,content__isnull=False).values_list('content')
 
     #If Session Key won't generate 
     if not request.session.session_key:
@@ -115,7 +130,8 @@ def post_detail(request, slug):
             "total_likes_count":total_likes_count,
             "views_count": views_count,
             "total_views_count":total_views_count,
-            "total_views":total_views
+            "total_views":total_views,
+            "total_word_count":total_word_count
             },
     )
 
@@ -148,6 +164,7 @@ def about_me(request):
     total_posts =  Post.objects.filter(status=1).count()
     total_likes_count = Post.objects.filter(total_likes__gte=1).aggregate(Sum('total_likes'))['total_likes__sum']
     total_views_count = PostViews.objects.all().count()
+    total_word_count = Post.objects.filter(status=1,content__isnull=False).values_list('content')
 
     return render(request,'about.html',{
         'social_links':social_links,
@@ -160,7 +177,8 @@ def about_me(request):
         'feature_box2':feature_box2,
         'total_posts':total_posts,
         "total_likes_count":total_likes_count,
-        "total_views_count":total_views_count
+        "total_views_count":total_views_count,
+        "total_word_count": total_word_count
 
     })
 
@@ -171,6 +189,7 @@ def post_search(request):
     total_views_count = PostViews.objects.all().count()
     tag_count = Tag.objects.all().annotate(num_times=Count('taggit_taggeditem_items')).order_by("-num_times")
     liked_posts = Post.objects.filter(status=1).order_by("-total_likes")[:3]
+    total_word_count = Post.objects.filter(status=1,content__isnull=False).values_list('content')
 
 
     query=request.GET['query']
@@ -193,6 +212,7 @@ def post_search(request):
             'total_views_count':total_views_count,
             'tag_count':tag_count,
             'liked_posts':liked_posts,
-            'social_links':social_links
+            'social_links':social_links,
+            "total_word_count":total_word_count
             
             })
