@@ -1,4 +1,4 @@
-# Just Another Journal App 📝✨
+# Travel Diary App 📝✨
 
 It's just another journal app but a highly customized one, ad-free and loads faster than free blog sites. The web app is built with Python and Django Frameworok (my current favourite). The goal is not to reinvent the wheel but to learn in the process of building from scratch and having a content management system that suits my interest and caters to my study requirements.
 
